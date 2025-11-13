@@ -1,60 +1,95 @@
 "use client"
 
-import { getPathFunc } from "@/utils/testing";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { Test } from "./Test";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Donation } from "./Donation";
-import DonationFormContext from "@/app/context/donationContext";
+import { useEffect, useState, useCallback } from "react"
+import useEmblaCarousel from "embla-carousel-react"
+import { heroData } from "@/_data/hero-data"
+import { Button } from "@/components/ui/button" // import shadcn Button
+
+const slides = [
+  { id: 1, bg: "/images/hero/bg-1.png" },
+  { id: 2, bg: "/images/hero/bg-4.png" },
+]
 
 const Hero = () => {
-  const donationInfo = useContext(DonationFormContext);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const scrollTo = useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi]
+  )
+
+  useEffect(() => {
+  if (!emblaApi) return
+  const onSelect = () => setCurrentSlide(emblaApi.selectedScrollSnap())
+  emblaApi.on("select", onSelect)
+
+  return () => {
+    emblaApi.off("select", onSelect)
+  } // TypeScript now understands it returns void
+}, [emblaApi])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    const interval = setInterval(() => {
+      const nextIndex = (emblaApi.selectedScrollSnap() + 1) % slides.length
+      emblaApi.scrollTo(nextIndex)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [emblaApi])
+
   return (
-    <>
-    <section className="relative bg-cover text-white md:pt-40 md:pb-28 py-20 bg-no-repeat bg-[url('/images/hero/banner-bg.jpg')] lg:mt-40 sm:mt-44 mt-20" >
-      <div className="container mx-auto lg:max-w-(--breakpoint-xl) px-4 grid grid-cols-12">
-        <div className="bg-white rounded-md p-10 lg:col-span-5 md:col-span-7 sm:col-span-10 col-span-12 dark:bg-dark" data-aos="fade-right">
-          <div className="flex justify-between mb-6">
-            <div className="px-4 py-2 bg-midnight_text rounded-sm">
-              <p className=" text-white text-sm font-semibold">
-                Featured
-              </p>
+    <div className="overflow-hidden" ref={emblaRef}>
+      <div className="flex">
+        {slides.map((slide) => (
+          <section
+            key={slide.id}
+            className="flex-[0_0_100%] relative bg-cover bg-center py-20 md:mt-40 md:pb-28"
+            style={{ backgroundImage: `url(${slide.bg})` }}
+          >
+            <div className="container mx-auto lg:max-w-[1880px] px-16 grid grid-cols-12">
+              <div className="bg-white rounded-md p-10 lg:col-span-5 md:col-span-7 sm:col-span-10 col-span-12 dark:bg-dark">
+                {/* Heading */}
+                <h3 className="text-midnight_text dark:text-white text-3xl md:text-4xl lg:text-7xl font-bold mb-6">
+                  {heroData.heading}
+                </h3>
+
+                {/* Subheading */}
+                <p className="text-muted dark:text-white/60 text-base mb-5">
+                  {heroData.subheading}
+                </p>
+
+                {/* Buttons */}
+                <div className="flex justify-start gap-3 mt-5">
+                  <Button asChild variant={heroData.button1.variant}>
+                    <a href={heroData.button1.href}>{heroData.button1.text}</a>
+                  </Button>
+                  <Button asChild variant={heroData.button2.variant}>
+                    <a href={heroData.button2.href} className="flex items-center gap-2">
+                      {heroData.button2.text}
+                    </a>
+                  </Button>
+                </div>
+              </div>
             </div>
-            <p className="text-muted dark:text-white/60 text-xs font-medium">193 days left</p>
-          </div>
-          <h3 className="text-midnight_text dark:text-white text-lg font-bold mb-6">
-            Give small help to african moms who struggle
-          </h3>
-          <p className="text-muted dark:text-white/60 text-base mb-5">
-          Help provide African mothers with food, healthcare, and skills to build better lives for their families.
-          </p>
-          <div className="grid grid-cols-2 border-t border-border dark:border-dark_border mb-5">
-            <div className="col-span-1 border-r border-border dark:border-dark_border px-5 py-4">
-              <p className="text-xs text-muted dark:text-white/60 mb-1 ">Raised</p>
-              <h4 className="text-2xl text-secondary">$65,360</h4>
-            </div>
-            <div className="col-span-1 px-5 py-4">
-              <p className="text-xs text-muted dark:text-white/60 mb-1">Goal</p>
-              <h4 className="text-2xl text-midnight_text dark:text-white">$124,500</h4>
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <button
-              onClick={() => donationInfo?.setIsDonationOpen(true)}
-              className="text-white bg-linear-to-r text-sm from-error to-warning px-7 py-4 hover:from-white hover:to-white dark:hover:from-dark dark:hover:to-dark border font-semibold border-transparent hover:border-error hover:text-error rounded-md"
-            >
-              Donate now
-            </button>
-            <Test/>
-          </div>
-        </div>
+          </section>
+        ))}
       </div>
-    </section>
 
-    </>
-    
-  );
-};
+      {/* Dots Navigation */}
+      <div className="flex justify-center mt-6 gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full ${
+              currentSlide === index ? "bg-secondary" : "bg-white/40"
+            }`}
+            onClick={() => scrollTo(index)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
-export default Hero;
+export default Hero

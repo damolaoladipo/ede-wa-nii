@@ -8,8 +8,9 @@ import UrgentDonation from '@/components/Home/UrgentDonation';
 import Newsletter from '@/components/Home/NewsLetter';
 import Testimonial from '@/components/Home/Testimonial';
 import Volunteer from '@/components/SharedComponent/Volunteer';
+
 export const metadata: Metadata = {
-  title: "Endeavor",
+  title: "ede-wa-ni - e gbe e laruge",
 };
 
 export default function Home() {

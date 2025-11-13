@@ -19,7 +19,7 @@ const Location = () => {
                 <p className="sm:text-2xl text-xl text-IceBlue font-normal max-w-64 leading-10 text-white/50">4292 Mapleview Drive Greenfield Zip code 38230</p>
               </div>
               <div className="col-span-3">
-                <Link href="mailto:headoffice@endeavor.com" className="sm:text-2xl text-xl text-white font-medium underline">headoffice@endeavor.com</Link>
+                <Link href="mailto:headoffice@ede-wa-ni.com" className="sm:text-2xl text-xl text-white font-medium underline">headoffice@ede-wa-ni.com</Link>
                 <Link href="tel:731-621-5503" className="sm:text-2xl text-xl text-white/80 flex items-center gap-2 hover:text-white w-fit"><span className="text-white/40">Call</span>731-621-5503</Link>
               </div>
             </div>
@@ -31,7 +31,7 @@ const Location = () => {
                 <p className="sm:text-2xl text-xl text-white/50 font-normal max-w-64 leading-10">3502 Marcus Street Geraldine Zip code 35974</p>
               </div>
               <div className="col-span-3">
-                <Link href="mailto:office@endeavor.com" className="sm:text-2xl text-xl text-white font-medium underline">office@endeavor.com</Link>
+                <Link href="mailto:office@ede-wa-ni.com" className="sm:text-2xl text-xl text-white font-medium underline">office@ede-wa-ni.com</Link>
                 <Link href="tel:731-235-7993" className="sm:text-2xl text-white/80 text-xl text-IceBlue flex items-center gap-2 hover:text-white w-fit"><span className="text-white/40">Call</span>731-235-7993</Link>
               </div>
             </div>

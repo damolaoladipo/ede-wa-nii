@@ -3,11 +3,11 @@ import { HeaderItem } from "@/types/menu";
 export const headerData: HeaderItem[] = [
   { label: "Home", href: "/" },
   {
-    label: "Causes",
+    label: "Programs",
     href: "#",
     submenu: [
-      { label: "Cause list", href: "/cause" },
-      { label: "Cause details", href: "/cause/cause-1" },
+      { label: "Program A", href: "/cause" },
+      { label: "Program details", href: "/cause/cause-1" },
     ],
   },
   {
@@ -27,5 +27,5 @@ export const headerData: HeaderItem[] = [
     ],
   },
   { label: "Contact", href: "/contact" },
-  { label: "Documentation", href: "/documentation#version" },
+  // { label: "Documentation", href: "/documentation#version" },
 ];

@@ -34,7 +34,7 @@ const Footer: FC = () => {
                 />
                 <div className="">
                   <h5 className="text-sm text-midnight_text dark:text-white mb-4">
-                    Endeavor Head Office
+                    ede-wa-ni Head Office
                   </h5>
                   <p className="text-sm text-muted dark:text-white/60">
                     134, Cornish Building, Some Near by area, New York, USA -
@@ -70,7 +70,7 @@ const Footer: FC = () => {
                     href="#"
                     className="text-sm text-midnight_text dark:text-white mb-0 hover:text-primary!"
                   >
-                    info@endeavor.com
+                    info@edewani.org
                   </Link>
                 </div>
               </div>

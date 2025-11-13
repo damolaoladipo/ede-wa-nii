@@ -234,7 +234,7 @@ const Header: React.FC = () => {
                 Email us at
               </p>
               <Link href="#" className="text-base font-semibold mb-0 hover:text-primary">
-                info@endeavor.com
+                info@edewani.org
               </Link>
             </div>
           </div>
